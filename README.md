@@ -1,6 +1,6 @@
 # MisterFPGA Neon68k unpacker
 
-Take the [Neon68k zip archive](https://neon68k.com/) and unzip one of the collections into an appropriate structure so that it can be upload directly to MisterFPGA.
+Take the [Neon68k zip archive](https://neon68k.com/) and unzip one of the collections inside it (e.g. 'MiSTer Upscaler\English\_Main' or 'External 4K Upscaler\Japanese\_Keyboard+Mouse') into an appropriate structure so that you can upload directly to MisterFPGA.
 
 - Sparsely documented for now, but it should be straightforward to figure out.
 - Only lightly tested. I believe it's not dangerous to use [caveat emptor].
@@ -18,7 +18,7 @@ The contents of the destination folder don't get deleted, so you can run this a 
 
 ## License and Credit
 
-Credit to James Rutherford and link to the root repository (https://github.com/creativenucleus/misterfpga-neon68k-unzipper)
+Credit: James Rutherford and link to the root repository (https://github.com/creativenucleus/misterfpga-neon68k-unzipper)
 
 This is a liberal license - [Code Credit 1.1.0](https://codecreditlicense.com/license/1.1.0) - you are welcome to fork and modify as you like, but ensure you retain this original credit.
 
