@@ -33,7 +33,7 @@ jobs:
       run: GOOS=darwin GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-mac-64.exe
 
     - name: Upload Linux
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: tic-80-bundler-linux
         path: |
@@ -41,7 +41,7 @@ jobs:
           ./release/misterfpga-neon68k-unzipper-linux-64.exe
 
     - name: Upload Windows
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: tic-80-bundler-windows
         path: |
@@ -49,7 +49,7 @@ jobs:
           ./release/misterfpga-neon68k-unzipper-win-64.exe
 
     - name: Upload Mac
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: tic-80-bundler-mac
         path: |
