@@ -10,7 +10,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -19,10 +18,40 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20'
-
-    - name: Build
-      run: go build -v ./...
+        go-version: '1.24'
 
     - name: Test
       run: go test -v ./...
+
+    - name: Build Linux
+      run: GOOS=linux GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-linux-64.exe
+
+    - name: Build Windows
+      run: GOOS=windows GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-win-64.exe
+
+    - name: Build Mac
+      run: GOOS=darwin GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-mac-64.exe
+
+    - name: Upload Linux
+      uses: actions/upload-artifact@v3
+      with:
+        name: tic-80-bundler-linux
+        path: |
+          ./README.md
+          ./release/misterfpga-neon68k-unzipper-linux-64.exe
+
+    - name: Upload Windows
+      uses: actions/upload-artifact@v3
+      with:
+        name: tic-80-bundler-windows
+        path: |
+          ./README.md
+          ./release/misterfpga-neon68k-unzipper-win-64.exe
+
+    - name: Upload Mac
+      uses: actions/upload-artifact@v3
+      with:
+        name: tic-80-bundler-mac
+        path: |
+          ./README.md
+          ./release/misterfpga-neon68k-unzipper-mac-64.exe

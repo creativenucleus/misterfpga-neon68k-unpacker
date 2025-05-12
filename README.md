@@ -4,6 +4,7 @@ Take a zip file [Neon68k](https://neon68k.com/) and unzip them into an appropria
 
 - Sparsely documented for now, but it should be straightforward to figure out.
 - Only lightly tested. I believe it's not dangerous to use.
+- I've only tested the Windows version. Relying on Go's cross-platform compile to make good on the other versions!
 
 ## Usage
 
