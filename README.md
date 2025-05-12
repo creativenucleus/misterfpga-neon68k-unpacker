@@ -1,6 +1,6 @@
 # MisterFPGA Neon68k unpacker
 
-Take a zip file [Neon68k](https://neon68k.com/) and unzip them into an appropriate structure so that you can upload directly to MisterFPGA.
+Take a zip file [Neon68k](https://neon68k.com/) and unzip one of the collections inside it (e.g. 'MiSTer Upscaler\English\_Main' or 'External 4K Upscaler\Japanese\_Keyboard+Mouse') into an appropriate structure so that you can upload directly to MisterFPGA.
 
 - Sparsely documented for now, but it should be straightforward to figure out.
 - Only lightly tested. I believe it's not dangerous to use.
