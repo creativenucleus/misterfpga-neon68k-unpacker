@@ -2,7 +2,8 @@
 
 Take a zip file [Neon68k](https://neon68k.com/) and unzip them into an appropriate structure so that you can upload directly to MisterFPGA.
 
-(Sparsely documented for now, but it should be straightforward to figure out)
+- Sparsely documented for now, but it should be straightforward to figure out.
+- Only lightly tested. I believe it's not dangerous to use.
 
 ## Usage
 

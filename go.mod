@@ -1,6 +1,6 @@
 module github.com/creativenucleus/misterfpga-neon68k-unzipper
 
-go 1.24.2
+go 1.24
 
 require github.com/urfave/cli/v2 v2.27.1
 
