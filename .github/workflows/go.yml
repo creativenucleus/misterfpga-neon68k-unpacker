@@ -1,6 +1,3 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
 name: Go
 
 on:
@@ -18,41 +15,41 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.24'
+        go-version-file: ./go.mod
         cache-dependency-path: ./go.sum
 
     - name: Test
       run: go test -v ./...
 
-    - name: Build Linux
-      run: GOOS=linux GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-linux-64.exe
-
     - name: Build Windows
-      run: GOOS=windows GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-win-64.exe
+      run: GOOS=windows GOARCH=amd64 go build -o ./release-win-64/misterfpga-neon68k-unzipper.exe
+
+    - name: Build Linux
+      run: GOOS=linux GOARCH=amd64 go build -o ./release-linux-64/misterfpga-neon68k-unzipper.exe
 
     - name: Build Mac
-      run: GOOS=darwin GOARCH=amd64 go build -o ./release/misterfpga-neon68k-unzipper-mac-64.exe
+      run: GOOS=darwin GOARCH=amd64 go build -o ./release-mac-64/misterfpga-neon68k-unzipper.exe
 
     - name: Upload Linux
       uses: actions/upload-artifact@v4
       with:
-        name: tic-80-bundler-linux
+        name: upload-linux
         path: |
           ./README.md
-          ./release/misterfpga-neon68k-unzipper-linux-64.exe
+          ./release-linux-64/misterfpga-neon68k-unzipper.exe
 
     - name: Upload Windows
       uses: actions/upload-artifact@v4
       with:
-        name: tic-80-bundler-windows
+        name: upload-windows
         path: |
           ./README.md
-          ./release/misterfpga-neon68k-unzipper-win-64.exe
+          ./release-win-64/misterfpga-neon68k-unzipper.exe
 
     - name: Upload Mac
       uses: actions/upload-artifact@v4
       with:
-        name: tic-80-bundler-mac
+        name: upload-mac
         path: |
           ./README.md
-          ./release/misterfpga-neon68k-unzipper-mac-64.exe
+          ./release-mac-64/misterfpga-neon68k-unzipper.exe
