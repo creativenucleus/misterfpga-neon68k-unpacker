@@ -14,7 +14,6 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "unzip",
 		Usage: "unzip a collection of X68000 games into folder ready to upload to MisterFPGA",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
