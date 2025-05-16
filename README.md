@@ -1,4 +1,4 @@
-# MisterFPGA Neon68k Unpacker
+# MiSTerFPGA Neon68k Unpacker
 
 [Neon68k](https://neon68k.com/) is an archive of game setups for the [X68000](https://en.wikipedia.org/wiki/X68000).  
 It's a curated zip-file of zip-files, and in order to use the games with MisterFPGA you need to unpack them into a specific folder structure.
