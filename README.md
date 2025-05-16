@@ -12,6 +12,7 @@ This tool is a simple command-line utility to make unpacking easy. It can unpack
 - This tool has only been lightly tested. I believe it's not dangerous to use [caveat emptor], but it may fail without a clear error message.
 - I've only tested on Windows. One of Go's strengths is cross-platform compilation, and I'm relying on that to build the other versions.
 - I would appreciate any feedback to confirm that it works well, and welcome issue reports for suspected bugs via GitHub.
+- Please follow instructions on the Neon68K website for everything to do with the X68000 and MiSTerFPGA. This tool is not affiliated with them, and support for anything outside unpacking will not be provided.
 
 ## Usage
 
