@@ -1,20 +1,40 @@
-# MisterFPGA Neon68k unpacker
+# MisterFPGA Neon68k Unpacker
 
-Take the [Neon68k zip archive](https://neon68k.com/) and unzip one of the collections inside it (e.g. 'MiSTer Upscaler\English\_Main' or 'External 4K Upscaler\Japanese\_Keyboard+Mouse') into an appropriate structure so that you can upload directly to MisterFPGA.
+The [Neon68k](https://neon68k.com/) is an archive of game setups for the X68000. It's a zip-file of zip-files, and in order to use the games with MisterFPGA you need to unpack them into a specific folder structure.
 
-- Sparsely documented for now, but it should be straightforward to figure out.
-- Only lightly tested. I believe it's not dangerous to use [caveat emptor].
-- I've only tested the Windows version. Relying on Go's cross-platform compile to make good on the other versions!
+The Neon68K website [outlines how to do this](https://neon68k.com/docs#unpacking-the-games) and it's fiddly - especially so for multiple games.
+
+This tool is a simple command-line utility to make unpacking easy. It can unpack a selection of games to a folder ready for you to upload to MiSTer, or - even easier - it can directly FTP them to a MiSTer on your local network.
+
+## Caveats
+
+- This tool has only been lightly tested. I believe it's not dangerous to use [caveat emptor], but it may fail without a good error message. I would appreciate any feedback to confirm!
+- I've only tested on Windows. One of Go's strengths is cross-platform compilation, and I'm relying on that to build the other versions.
 
 ## Usage
 
-`.\misterfpga-neon68k-unzipper.exe --src-zip "C:\Users\James\Desktop\neon68k.zip" --collection "Neon68K-20250428\MiSTer Upscaler\English\_Main" --dest-folder .\folder-for-misterfpga`
+The tool requires you to specify a path to match for the zip-files inside the archive, to specify a particular collection.
 
-The contents of the destination folder don't get deleted, so you can run this a few times to bring together a selection of the collections.
+The most common use-case will be to extract the English-Main collection, something like this:
 
-## Possible extensions
+`.\misterfpga-neon68k-unzipper.exe --src-zip ".\src\neon68k.zip" --src-collection "Neon68K-20250428\MiSTer Upscaler\English\_Main" --dest-type=file --dest-folder .\folder-for-misterfpga`
 
-- FTP direct to MisterFPGA
+The tool does not delete anything in the destination folder, so you can run it multiple times to build up your own selection of the games.
+
+## Arguments
+
+- `--src-zip` - the path to the zip-file you downloaded from the Neon68K website. This is required.
+- `--src-collection` - the path to the collection you want to extract. This is required. Take note of the example above, and you will need to manually open the zip-file if you'd like a different collection. Examples of this might be:
+    - `Neon68K-20250428\MiSTer Upscaler\English\_Main` (for the main collection)
+    - `Neon68K-20250428\MiSTer Upscaler\English\_Keyboard+Mouse` (for the keyboard and mouse collection)
+    - `Neon68K-20250428\MiSTer Upscaler\English` (for all the English collections - this includes games with major bugs)
+    - `Neon68K-20250428\MiSTer Upscaler\English\_Main\Sol-Feace.zip` (for a single game)
+    - `Neon68K-20250428\External 4K Upscaler\Japanese\_Main` (for the main Japanese collection, with an external scaler)
+- `--dest-type` - the type of destination you want. This can be either `file` or `ftp`.
+    - `file` - the destination is a folder on the filesystem.
+    - `ftp` - the destination is an FTP server. For uploading directly to a MiSTerFPGA on your local network.
+- `--dest-folder` - the folder on the filesystem to unpack the files to. This is required if you are using `file` as the destination type.
+- `--dest-ftp` - the IP address of your MiSTerFPGA. This is required if you are using `ftp` as the destination type. The tool will attempt to connect to the MiSTer using the default FTP port (21) and will use the default MiSTer credentials (username: `root`, password: `1`) - please let me know if you use anything different to that. I'll consider modifying the tool if there's a requirement.
 
 ## License and Credit
 

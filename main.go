@@ -8,7 +8,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
+	"github.com/jlaffaye/ftp"
 	"github.com/urfave/cli/v2"
 )
 
@@ -22,28 +24,67 @@ func main() {
 				Required: true,
 			},
 			&cli.StringFlag{
-				Name:     "collection",
+				Name:     "src-collection",
 				Usage:    "The collection folder (which of the subfolders in the zip file to extract)",
 				Required: true,
 			},
 			&cli.StringFlag{
-				Name:     "dest-folder",
-				Usage:    "The destination folder for the unzipped files",
+				Name:     "dest-type",
+				Usage:    "file or ftp",
 				Required: true,
+			},
+			&cli.StringFlag{
+				Name:  "dest-folder",
+				Usage: "The destination folder for the unzipped files",
+			},
+			&cli.StringFlag{
+				Name:  "dest-ip",
+				Usage: "The destination address of the MiSTer",
 			},
 		},
 		Action: func(cCtx *cli.Context) error {
 			srcZip := cCtx.String("src-zip")
-			collection := cCtx.String("collection")
-			destFolder := cCtx.String("dest-folder")
-			if srcZip == "" || collection == "" || destFolder == "" {
-				log.Fatal("src-zip, collection, and dest-folder are required")
+			srcCollection := cCtx.String("src-collection")
+			destType := cCtx.String("dest-type")
+			if srcZip == "" || srcCollection == "" || destType == "" {
+				log.Fatal("src-zip, src-collection, and dest-type are required")
 			}
 
-			err := unzipCollectionFromOuterZip(srcZip, collection, destFolder)
+			var writer IWriter
+			if destType == "file" {
+				destFolder := cCtx.String("dest-folder")
+				if destFolder == "" {
+					log.Fatal("dest-folder is required when dest-type is 'file'")
+				}
+
+				destFolder, err := filepath.Abs(destFolder)
+				if err != nil {
+					return err
+				}
+
+				writer = fileWriter(destFolder)
+			} else if destType == "ftp" {
+				destIP := cCtx.String("dest-ip")
+				if destIP == "" {
+					log.Fatal("dest-ip is required when dest-type is 'ftp'")
+				}
+
+				conn, err := openFTPConnection(destIP)
+				if err != nil {
+					return err
+				}
+				defer conn.Quit()
+
+				writer = ftpWriter(*conn)
+			} else {
+				log.Fatal("dest-type must be either 'file' or 'ftp'")
+			}
+
+			err := unzipCollectionFromOuterZip(srcZip, srcCollection, writer)
 			if err != nil {
 				log.Fatal(err)
 			}
+
 			return nil
 		},
 	}
@@ -54,12 +95,7 @@ func main() {
 	}
 }
 
-func unzipCollectionFromOuterZip(srcZipFile string, collectionFolder string, destFolder string) error {
-	destFolder, err := filepath.Abs(destFolder)
-	if err != nil {
-		return err
-	}
-
+func unzipCollectionFromOuterZip(srcZipFile string, collectionFolder string, writer IWriter) error {
 	outerZipReader, err := zip.OpenReader(srcZipFile)
 	if err != nil {
 		return err
@@ -94,23 +130,15 @@ func unzipCollectionFromOuterZip(srcZipFile string, collectionFolder string, des
 
 		for _, innerZipFile := range innerZipReader.File {
 			correctedInnerPath := filepath.FromSlash(innerZipFile.Name)
-			correctedInnerPath = filepath.Join(destFolder, correctedInnerPath)
-
-			err := os.MkdirAll(filepath.Dir(correctedInnerPath), os.ModePerm)
-			if err != nil {
-				return err
-			}
-
-			destinationFile, err := os.OpenFile(correctedInnerPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm)
-			if err != nil {
-				return err
-			}
 
 			innerZipFileReader, err := innerZipFile.Open()
 			if err != nil {
 				return err
 			}
-			if _, err := io.Copy(destinationFile, innerZipFileReader); err != nil {
+			defer innerZipFileReader.Close()
+
+			err = writer(correctedInnerPath, innerZipFileReader)
+			if err != nil {
 				return err
 			}
 		}
@@ -119,4 +147,18 @@ func unzipCollectionFromOuterZip(srcZipFile string, collectionFolder string, des
 	}
 
 	return nil
+}
+
+func openFTPConnection(misterIP string) (*ftp.ServerConn, error) {
+	conn, err := ftp.Dial(misterIP+":21", ftp.DialWithTimeout(5*time.Second))
+	if err != nil {
+		return nil, err
+	}
+
+	err = conn.Login("root", "1")
+	if err != nil {
+		return nil, err
+	}
+
+	return conn, nil
 }

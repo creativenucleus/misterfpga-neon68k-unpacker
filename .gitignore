@@ -1,4 +1,5 @@
 *.exe
 *.bat
 
+/src
 /folder-for-misterfpga
