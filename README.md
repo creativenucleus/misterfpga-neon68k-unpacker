@@ -1,25 +1,27 @@
 # MisterFPGA Neon68k Unpacker
 
-The [Neon68k](https://neon68k.com/) is an archive of game setups for the X68000. It's a zip-file of zip-files, and in order to use the games with MisterFPGA you need to unpack them into a specific folder structure.
+[Neon68k](https://neon68k.com/) is an archive of game setups for the [X68000](https://en.wikipedia.org/wiki/X68000).  
+It's a curated zip-file of zip-files, and in order to use the games with MisterFPGA you need to unpack them into a specific folder structure.
 
-The Neon68K website [outlines how to do this](https://neon68k.com/docs#unpacking-the-games) and it's fiddly - especially so for multiple games.
+The Neon68K website [outlines how to do this](https://neon68k.com/docs#unpacking-the-games) and it's fiddly - especially for multiple games.
 
 This tool is a simple command-line utility to make unpacking easy. It can unpack a selection of games to a folder ready for you to upload to MiSTer, or - even easier - it can directly FTP them to a MiSTer on your local network.
 
 ## Caveats
 
-- This tool has only been lightly tested. I believe it's not dangerous to use [caveat emptor], but it may fail without a good error message. I would appreciate any feedback to confirm!
+- This tool has only been lightly tested. I believe it's not dangerous to use [caveat emptor], but it may fail without a clear error message.
 - I've only tested on Windows. One of Go's strengths is cross-platform compilation, and I'm relying on that to build the other versions.
+- I would appreciate any feedback to confirm that it works well, and welcome issue reports for suspected bugs via GitHub.
 
 ## Usage
 
-The tool requires you to specify a path to match for the zip-files inside the archive, to specify a particular collection.
+The tool requires you to specify a path to match for the zip-files inside the archive to specify a particular collection.
 
 The most common use-case will be to extract the English-Main collection, something like this:
 
-`.\misterfpga-neon68k-unzipper.exe --src-zip ".\src\neon68k.zip" --src-collection "Neon68K-20250428\MiSTer Upscaler\English\_Main" --dest-type=file --dest-folder .\folder-for-misterfpga`
+`.\misterfpga-neon68k-unpacker.exe --src-zip ".\path-to-source\neon68k.zip" --src-collection "Neon68K-20250428\MiSTer Upscaler\English\_Main" --dest-type=file --dest-folder .\path-to-folder-for-output`
 
-The tool does not delete anything in the destination folder, so you can run it multiple times to build up your own selection of the games.
+The tool does not delete anything in the destination folder, so you can run it multiple times with different collections to build up your own selection of the games.
 
 ## Arguments
 
@@ -38,7 +40,7 @@ The tool does not delete anything in the destination folder, so you can run it m
 
 ## License and Credit
 
-Credit: James Rutherford and link to the root repository (https://github.com/creativenucleus/misterfpga-neon68k-unzipper)
+Credit: James Rutherford and link to the root repository (https://github.com/creativenucleus/misterfpga-neon68k-unpacker)
 
 This is a liberal license - [Code Credit 1.1.0](https://codecreditlicense.com/license/1.1.0) - you are welcome to fork and modify as you like, but ensure you retain this original credit.
 
@@ -46,4 +48,5 @@ Please send me a mention / pop me a hello if you use it :) [Mastodon](https://ma
 
 ## Thanks
 
-The [Neon68K team](https://neon68k.com/) of course!
+- The [Neon68K team](https://neon68k.com/) of course!
+- Authors of Go packages used in this project.

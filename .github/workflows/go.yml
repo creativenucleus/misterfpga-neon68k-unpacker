@@ -22,13 +22,13 @@ jobs:
       run: go test -v ./...
 
     - name: Build Windows
-      run: GOOS=windows GOARCH=amd64 go build -o ./release-win-64/misterfpga-neon68k-unzipper.exe
+      run: GOOS=windows GOARCH=amd64 go build -o ./release-win-64/misterfpga-neon68k-unpacker.exe
 
     - name: Build Linux
-      run: GOOS=linux GOARCH=amd64 go build -o ./release-linux-64/misterfpga-neon68k-unzipper.exe
+      run: GOOS=linux GOARCH=amd64 go build -o ./release-linux-64/misterfpga-neon68k-unpacker.exe
 
     - name: Build Mac
-      run: GOOS=darwin GOARCH=amd64 go build -o ./release-mac-64/misterfpga-neon68k-unzipper.exe
+      run: GOOS=darwin GOARCH=amd64 go build -o ./release-mac-64/misterfpga-neon68k-unpacker.exe
 
     - name: Upload Linux
       uses: actions/upload-artifact@v4
@@ -36,7 +36,7 @@ jobs:
         name: upload-linux
         path: |
           ./README.md
-          ./release-linux-64/misterfpga-neon68k-unzipper.exe
+          ./release-linux-64/misterfpga-neon68k-unpacker.exe
 
     - name: Upload Windows
       uses: actions/upload-artifact@v4
@@ -44,7 +44,7 @@ jobs:
         name: upload-windows
         path: |
           ./README.md
-          ./release-win-64/misterfpga-neon68k-unzipper.exe
+          ./release-win-64/misterfpga-neon68k-unpacker.exe
 
     - name: Upload Mac
       uses: actions/upload-artifact@v4
@@ -52,4 +52,4 @@ jobs:
         name: upload-mac
         path: |
           ./README.md
-          ./release-mac-64/misterfpga-neon68k-unzipper.exe
+          ./release-mac-64/misterfpga-neon68k-unpacker.exe

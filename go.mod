@@ -1,4 +1,4 @@
-module github.com/creativenucleus/misterfpga-neon68k-unzipper
+module github.com/creativenucleus/misterfpga-neon68k-unpacker
 
 go 1.24
 
