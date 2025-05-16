@@ -37,7 +37,7 @@ The tool does not delete anything in the destination folder, so you can run it m
     - `file` - the destination is a folder on the filesystem.
     - `ftp` - the destination is an FTP server. For uploading directly to a MiSTerFPGA on your local network.
 - `--dest-folder` - the folder on the filesystem to unpack the files to. This is required if you are using `file` as the destination type.
-- `--dest-ftp` - the IP address of your MiSTerFPGA. This is required if you are using `ftp` as the destination type. The tool will attempt to connect to the MiSTer using the default FTP port (21) and will use the default MiSTer credentials (username: `root`, password: `1`) - please let me know if you use anything different to that. I'll consider modifying the tool if there's a requirement.
+- `--dest-ftp` - the IP address of your MiSTerFPGA (e.g. `--dest-ftp=192.168.4.200`). This is required if you are using `ftp` as the destination type. The tool will attempt to connect to the MiSTer using the default FTP port (21), will use the default MiSTer credentials (username: `root`, password: `1`), and default filesystem setup (with `/media/fat` as the deployment root) - please let me know if you use anything different to that. I'll consider modifying the tool if there's any requirement.
 
 ## License and Credit
 
