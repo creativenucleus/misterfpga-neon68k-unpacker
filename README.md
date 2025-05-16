@@ -7,6 +7,8 @@ The Neon68K website [outlines how to do this](https://neon68k.com/docs#unpacking
 
 This tool is a simple command-line utility to make unpacking easy. It can unpack a selection of games to a folder ready for you to upload to MiSTer, or - even easier - it can directly FTP them to a MiSTer on your local network.
 
+You can build it yourself if you're familiar with Go, or you can download a pre-built binary from the [releases page](https://github.com/creativenucleus/misterfpga-neon68k-unpacker/releases/).
+
 ## Caveats
 
 - This tool has only been lightly tested. I believe it's not dangerous to use [caveat emptor], but it may fail without a clear error message.
